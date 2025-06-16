@@ -3,7 +3,9 @@ programa {
     // Escreva 5 valores, soma dos valores, média
     // Quantos são divisíveis por 5
     // Quantos são nulos, soma dos pares
+
     inteiro v1, v2, v3, v4, v5, media
+
     escreva("Digite um valor: ")
     leia(v1)
     escreva("Digite um valor: ")
@@ -21,6 +23,8 @@ programa {
     escreva("A média desses valores é igual a: " , media)
     escreva("=====================================\n")
 
-    
+    se(v1 % 5 = 0){
+      
+    } 
   }
 }
