@@ -29,7 +29,7 @@ programa {
       transportPay = 0
     } senao {
       transportPay = transportValue
-      escreva("\nVocê receberá vale-transporte no valor de R$ ", transportPay, "\n")
+      escreva("\nVocê receberá vale-transporte no valor de R$ " + transportPay + "\n")
     }
 
     se(grossSalary <= 1518) {
@@ -62,20 +62,20 @@ programa {
     escreva("         RELATÓRIO DE PAGAMENTO          \n")
     escreva("=========================================\n")
     escreva("Empresa: SeverinoTech Sistemas Ltda.\n")
-    escreva("Funcionário: ", fullName, "\n")
-    escreva("Salário Bruto: R$ ", grossSalary, "\n")
-    escreva("Número de Dependentes: ", numChildren, "\n")
-    escreva("Desconto do INSS: R$ ", inssDiscount, "\n")
-    escreva("Desconto do IRRF: R$ ", irrfDiscount, "\n")
+    escreva("Funcionário: " + fullName + "\n")
+    escreva("Salário Bruto: R$ " + grossSalary + "\n")
+    escreva("Número de Dependentes: " + numChildren + "\n")
+    escreva("Desconto do INSS: R$ " + inssDiscount + "\n")
+    escreva("Desconto do IRRF: R$ " + irrfDiscount + "\n")
 
     se(transportPay > 0) {
-      escreva("Vale-Transporte Recebido: R$ ", transportPay, "\n")
-      escreva("Desconto do Vale-Transporte: R$ ", transportDiscount, "\n")
+      escreva("Vale-Transporte Recebido: R$ " + transportPay + "\n")
+      escreva("Desconto do Vale-Transporte: R$ " + transportDiscount + "\n")
     } senao {
       escreva("Vale-Transporte: Não recebido\n")
     }
 
-    escreva("Salário Líquido: R$ ", netSalary, "\n")
+    escreva("Salário Líquido: R$ " + netSalary + "\n")
     escreva("=========================================\n")
   }
 }
