@@ -1,95 +1,81 @@
 programa {
   funcao inicio() {
-
-    real valeTrans = 350, salaryBrute, childs, discount, inss, optionInss, optionIRRF, irrf
-    cadeia name
+    
+    real transportValue = 350
+    real grossSalary, inssDiscount = 0, irrfDiscount = 0
+    inteiro numChildren
+    cadeia fullName
+    real transportDiscount, childDeduction = 189.59
+    real netSalary, irrfBase, transportPay = 0
 
     escreva("=========================================\n")
-
-    escreva("\n      BEM-VINDO AO SISTEMA           \n")
-
+    escreva("         BEM-VINDO AO SISTEMA            \n")
     escreva("=========================================\n")
-   
+
     escreva("Qual o seu nome completo? ")
-    leia(name)
+    leia(fullName)
 
     escreva("Qual o seu salário bruto? ")
-    leia(salaryBrute)
+    leia(grossSalary)
 
     escreva("Quantos dependentes (filhos) você tem? ")
-    leia(childs)
+    leia(numChildren)
 
-    discount = salaryBrute * 6 / 100
+    transportDiscount = grossSalary * 0.06
 
-    se(discount > valeTrans){
-      escreva("Não haverá pagamento de vale-transporte e nem o desconto." )
+    se(transportDiscount > transportValue) {
+      escreva("\nNão haverá pagamento de vale-transporte e nem o desconto.\n")
+      transportDiscount = 0
+      transportPay = 0
+    } senao {
+      transportPay = transportValue
+      escreva("\nVocê receberá vale-transporte no valor de R$ ", transportPay, "\n")
     }
 
-    senao{
-      escreva("Você terá o seu pagamento! ")
+    se(grossSalary <= 1518) {
+      inssDiscount = grossSalary * 0.075
+    } senao se(grossSalary <= 2793.88) {
+      inssDiscount = grossSalary * 0.09
+    } senao se(grossSalary <= 4190.83) {
+      inssDiscount = grossSalary * 0.12
+    } senao se(grossSalary <= 5157.41) {
+      inssDiscount = grossSalary * 0.14
     }
 
-    escreva("\n=========================================\n")
-    escreva("             Desconto do INSS")
-    escreva("\n=========================================\n")
+    irrfBase = grossSalary - inssDiscount - (numChildren * childDeduction)
 
-    escreva("O seu salário é \n 1 - 1.518 \n 2 - 1.518,01 até 2.793,88 \n 3 - 2.793,89 até 4.190,83 \n 4 - 4.190,84 até 5.157,41\n")
-    leia(optionInss)
-    
-    se(optionInss == 1){
-
-      inss = salaryBrute * 0.075
-
-      escreva("O desconto do INSS será de " + inss + "\n")
-           
-    } senao se(optionInss == 2){
-
-        inss = salaryBrute * 0.09
-       
-        escreva("O desconto do INSS será de " + inss + "\n")
-
-    } senao se(optionInss == 3){
-
-      inss = salaryBrute * 0.12
-
-      escreva("O desconto do INSS será de " + inss + "\n")
-
-    } senao se(optionInss == 4){
-      inss = salaryBrute * 0.14
-     
-      escreva("O desconto do INSS será de " + inss + "\n")
-    } 
-
-    escreva("\n=========================================\n")
-    escreva("             Desconto do IRRF")
-    escreva("\n=========================================\n")
-
-        escreva("O seu salário é \n 1 - 2.259,20 \n 2 - 2.259,21  até 2.826,65 \n 3 - 2.826,66 até 3.751,05 \n 4 - 3.751,06 até 4.664,68 \n 5 - Acima de 4.664,68\n" )
-    leia(optionIRRF)
-    
-    childs = 189.59
-    
-    childs = salaryBrute - childs
-
-    se(optionIRRF == 1){
-                
-    } senao se(optionIRRF == 2){
-
-        irrf = salaryBrute * 0.075 - 169.44 - childs
-
-    } senao se(optionIRRF == 3){
-
-      irrf = salaryBrute * 0.15 - 381.44
-
-    } senao se(optionIRRF == 4){
-      irrf= salaryBrute * 0.255 - 662.77
-     
-    } senao se(optionIRRF == 5){      
-      irrf = salaryBrute * 0.275 - 896
+    se(irrfBase <= 2259.20) {
+      irrfDiscount = 0
+    } senao se(irrfBase <= 2826.65) {
+      irrfDiscount = (irrfBase * 0.075) - 169.44
+    } senao se(irrfBase <= 3751.05) {
+      irrfDiscount = (irrfBase * 0.15) - 381.44
+    } senao se(irrfBase <= 4664.68) {
+      irrfDiscount = (irrfBase * 0.225) - 662.77
+    } senao {
+      irrfDiscount = (irrfBase * 0.275) - 896.00
     }
 
+    netSalary = grossSalary - inssDiscount - irrfDiscount - transportDiscount
 
+    escreva("\n=========================================\n")
+    escreva("         RELATÓRIO DE PAGAMENTO          \n")
+    escreva("=========================================\n")
+    escreva("Empresa: SeverinoTech Sistemas Ltda.\n")
+    escreva("Funcionário: ", fullName, "\n")
+    escreva("Salário Bruto: R$ ", grossSalary, "\n")
+    escreva("Número de Dependentes: ", numChildren, "\n")
+    escreva("Desconto do INSS: R$ ", inssDiscount, "\n")
+    escreva("Desconto do IRRF: R$ ", irrfDiscount, "\n")
 
-       
+    se(transportPay > 0) {
+      escreva("Vale-Transporte Recebido: R$ ", transportPay, "\n")
+      escreva("Desconto do Vale-Transporte: R$ ", transportDiscount, "\n")
+    } senao {
+      escreva("Vale-Transporte: Não recebido\n")
+    }
+
+    escreva("Salário Líquido: R$ ", netSalary, "\n")
+    escreva("=========================================\n")
   }
 }
